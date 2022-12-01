@@ -55,25 +55,25 @@ class TicTacToe:
         return output
 
 
-    def minimax(position, depth, maximizingPlayer):
+    def minimax(self, position, depth, maximizingPlayer):
         game_over = False
         static_eval = False
         # if depth == 0 or game over in position
         # return static evaluation of position
-        if depth == 0 or game_over:
+        if depth == 0 or self.game.is_full() or self.won:
             return static_eval
 
         if maximizingPlayer:
-            maxEval = float('-inf')
+            maxEval = -10000
             for child in range(position):
-                eval = minimax(child, depth - 1, False)
+                eval = self.minimax(child, depth - 1, False)
                 maxEval = max(maxEval, eval)
             return maxEval
 
         else:
-            minEval = float('+inf')
+            minEval = 10000
             for child in range(position):
-                eval = minimax(child, depth - 1, True)
+                eval = self.minimax(child, depth - 1, True)
                 minEval = min(minEval, eval)
             return minEval
 
@@ -87,7 +87,7 @@ class TicTacToe:
             print('Nobody won this round!')
         answer = input('Want to play again? (Y or N) ')
         if answer == 'Y' or answer == 'y':
-            self.game.board = Board(3,3)
+            self.game = Board(3,3)
             self.human_player = ''
             self.comp_player = ''
             self.current_player = ''
@@ -184,7 +184,7 @@ class TicTacToe:
         
           self.switch_players()
 
-          #self.minimax(1, 3, True)
+          self.minimax(1, 3, True)
 
 
 game = TicTacToe()

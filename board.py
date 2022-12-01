@@ -25,6 +25,7 @@ class Board:
                 if space == '-':
                     return False
         return True 
+    
 
 
     
